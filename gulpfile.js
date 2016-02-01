@@ -6,12 +6,38 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var jade = require( 'gulp-jade' );
+var inject = require('gulp-inject');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['scss/**/*.scss'],
+  jade: ['www/views/**/*.jade'],
+  javascript: [
+    'www/js/controllers/*.js',
+    'www/js/services/*.js',
+    'www/lib/*/dist/*.min.js',
+    '!www/lib/*/dist/*.fp.min.js',
+    '!www/lib/*/dist/*.core.min.js',
+    '!www/js/app.js'
+  ],
+  css: [
+    'www/**/*.css',
+    '!www/css/ionic.app*.css',
+    '!www/lib/**'
+  ]
 };
 
-gulp.task('default', ['sass']);
+gulp.task('index', function(){
+   return gulp.src('./www/index.html')
+       .pipe(inject(
+           gulp.src(paths.javascript,
+               {read: false}), {relative: true}))
+       .pipe(gulp.dest('./www'))
+       .pipe(inject(
+           gulp.src(paths.css,
+           {read: false}), {relative: true}))
+       .pipe(gulp.dest('./www'));
+});
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -26,8 +52,17 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
+gulp.task( 'jade', function (done) {
+  gulp.src( paths.jade )
+    .pipe( jade() )
+    .pipe( gulp.dest( './www/views/html/' ) )
+    .on( 'end', done );
+} );
+
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.jade, ['jade']);
+  gulp.watch([paths.javascript, paths.css], ['index']);
 });
 
 gulp.task('install', ['git-check'], function() {
@@ -49,3 +84,5 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+gulp.task('default', ['watch', 'index']);
