@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('start')
+  angular.module('starter')
     // .constant('API_URL', 'http://192.168.1.132:3000/api/v1')
     .constant('API_URL', 'http://altour-staging.herokuapp.com/api/v1')
     // .constant('API_URL', 'http://localhost:3000/api/v1')

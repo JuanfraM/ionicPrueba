@@ -1,6 +1,7 @@
+(function() {
 'use strict';
 
-angular.module('start')
+angular.module('starter')
   .factory('authenticationService', function (Restangular, localStorageService, $rootScope, AUTH_EVENTS, $state, USER_TYPES){
 
     var service = {};
@@ -75,3 +76,5 @@ angular.module('start')
 
     return service;
   });
+
+})();

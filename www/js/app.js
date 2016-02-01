@@ -3,7 +3,8 @@
 
   angular
     .module('starter', ['ionic', 'restangular', 'LocalStorageModule'])
-      .run(function($ionicPlatform) {
+      .run(function ($ionicPlatform, $rootScope, authenticationService){
+
         $ionicPlatform.ready(function() {
           // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
           // for form inputs)
@@ -18,17 +19,17 @@
           }
         });
 
-        authService.getCurrentUser();
+        authenticationService.getCurrentUser();
         // on changeStart, check if user has authenticated himself
         $rootScope.$on('$stateChangeStart', function (event, next) {
           if(next.data && next.data.authRequired && !$rootScope.currentUser){
             event.preventDefault();
-            authService.authEventAction(authService.getEventTypes().notAuthenticated);
+            authenticationService.authEventAction(authenticationService.getEventTypes().notAuthenticated);
           }
 
           if(next.data && next.data.authRoles !== $rootScope.currentUser.userType){
             event.preventDefault();
-            authService.authEventAction(authService.getEventTypes().notAuthorized);
+            authenticationService.authEventAction(authenticationService.getEventTypes().notAuthorized);
           }
         });
         
