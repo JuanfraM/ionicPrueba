@@ -8,25 +8,9 @@
       .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: 'views/html/abstract.html',
+        templateUrl: 'views/html/menu.html',
         controller: 'applicationController'
-      })
-      .state('app.search', {
-        url: '/search',
-        views: {
-          'menuContent': {
-            templateUrl: 'views/html/search.html'
-          }
-        }
-      })
-      .state('app.browse', {
-        url: '/browse',
-        views: {
-          'menuContent': {
-            templateUrl: 'views/html/browse.html'
-          }
-        }
-      })
+      })      
       .state('app.playlists', {
         url: '/playlists',
         views: {
@@ -45,6 +29,21 @@
           }
         }
       });
+
+      $stateProvider
+      .state('different', {
+        url: '/different',
+        abstract: true,
+        templateUrl: 'views/html/abstract.html'
+      }) 
+      .state('different.search', {
+        url: '/search',
+        templateUrl: 'views/html/search.html'
+      })
+      .state('different.browse', {
+        url: '/browse',
+        templateUrl: 'views/html/browse.html'        
+      })
       // if none of the above states are matched, use this as the fallback
       $urlRouterProvider.otherwise('/app/playlists');
 

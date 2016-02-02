@@ -11,14 +11,15 @@ var inject = require('gulp-inject');
 
 var paths = {
   sass: ['scss/**/*.scss'],
-  jade: ['www/views/**/*.jade'],
+  jade: ['www/views/*.jade'],
   javascript: [
+    'www/js/app.js',
+    'www/js/config/*.js',
     'www/js/controllers/*.js',
     'www/js/services/*.js',
     'www/lib/*/dist/*.min.js',
     '!www/lib/*/dist/*.fp.min.js',
-    '!www/lib/*/dist/*.core.min.js',
-    '!www/js/app.js'
+    '!www/lib/*/dist/*.core.min.js'    
   ],
   css: [
     'www/**/*.css',
@@ -85,4 +86,4 @@ gulp.task('git-check', function(done) {
   done();
 });
 
-gulp.task('default', ['watch', 'index']);
+gulp.task('default', ['watch', 'index', 'jade', 'sass']);
