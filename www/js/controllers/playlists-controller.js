@@ -1,11 +1,11 @@
 (function () {
-	'use strict';
+  'use strict';
 
-	var myApp = angular.module('starter');
+  var myApp = angular.module('starter');
 
-	myApp.controller('playlistsController', ['$scope', function($scope) {
+  myApp.controller('playlistsController', ['$scope', function($scope) {
 
-		$scope.playlists = [
+    $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
     { title: 'Dubstep', id: 3 },
@@ -14,5 +14,5 @@
     { title: 'Cowbell', id: 6 }
   ];
 
-	}]);
+  }]);
 })();

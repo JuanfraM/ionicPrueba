@@ -8,6 +8,7 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var jade = require( 'gulp-jade' );
 var inject = require('gulp-inject');
+var server = require('karma').Server;
 
 var paths = {
   sass: ['scss/**/*.scss'],
@@ -84,6 +85,16 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+/**
+ * Run test once and exit
+ */
+gulp.task('test', function (done) {
+  new server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
 gulp.task('default', ['watch', 'index', 'jade', 'sass']);
